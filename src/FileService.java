@@ -1,23 +1,39 @@
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-public class Files {
+public class FileService {
 
-    public void createFile(String fileName){
-        File file = new File("files/" + fileName);
+    public static void savePet(Pet pet) {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm");
+        String fileName = (localDateTime.format(formatter) + pet.getName()
+                .toUpperCase()
+                .replaceAll(" ", ""));
+        File file = new File("petsCadastrados/" + fileName);
         try {
             file.createNewFile();
         } catch (IOException e) {
             System.out.println("Não foi possível criar o arquivo." + e.getMessage());
         }
+
+        try (FileWriter fileWriter = new FileWriter(file);
+             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+            bufferedWriter.write(pet.toString());
+        } catch (IOException e) {
+            System.out.println("Não foi possível escrever no arquivo." + e.getMessage());
+        }
+
     }
 
-    public void writefile(File file, String text){
-        try(FileWriter fileWriter = new FileWriter(file);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)){
-        bufferedWriter.write(text);
-        }catch (IOException e){
+    public static void writeFile(File file, String text) {
+        try (FileWriter fileWriter = new FileWriter(file);
+             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+            bufferedWriter.write(text);
+        } catch (IOException e) {
             System.out.println("Não foi possível escrever no arquivo." + e.getMessage());
         }
     }
@@ -34,8 +50,8 @@ public class Files {
         }
     }
 
-    public List<String> readForm(){
-        File form = new File("files/formulario.txt");
+    public List<String> readForm() {
+        File form = new File("petsCadastrados/formulario.txt");
         List<String> questions = new ArrayList<String>();
         try (FileReader fileReader = new FileReader(form);
              BufferedReader bufferedReader = new BufferedReader(fileReader)) {
@@ -49,4 +65,6 @@ public class Files {
 
         return questions;
     }
+
+
 }

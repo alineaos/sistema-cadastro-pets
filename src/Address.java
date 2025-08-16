@@ -8,4 +8,9 @@ public class Address {
         this.number = number;
         this.city = city;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s, %s, %s", street, number, city);
+    }
 }

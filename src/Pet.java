@@ -18,16 +18,51 @@ public class Pet {
         this.breed = breed;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public PetType getType() {
+        return type;
+    }
+
+    public PetSex getSex() {
+        return sex;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public double getAge() {
+        return age;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public String getBreed() {
+        return breed;
+    }
+
     @Override
     public String toString() {
-        return "Pet{" +
-                "name='" + name + '\'' +
-                ", type=" + type +
-                ", sex=" + sex +
-                ", address=" + address +
-                ", age=" + age +
-                ", weight=" + weight +
-                ", breed='" + breed + '\'' +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("1- ")
+                .append(this.getName())
+                .append("\n2- ")
+                .append(this.getType().getClassification())
+                .append("\n3- ")
+                .append(this.getSex().getClassification())
+                .append("\n4- ")
+                .append(this.getAddress())
+                .append("\n5- ")
+                .append(String.format("%.2f", this.getAge()))
+                .append(" anos\n6- ")
+                .append(this.getWeight())
+                .append("kg\n7- ")
+                .append(this.getBreed());
+        return sb.toString();
     }
 }

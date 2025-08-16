@@ -1,15 +1,21 @@
 public enum PetSex {
-    FEMEA("F"),
-    MACHO("M");
+    FEMEA("F", "Femea"),
+    MACHO("M", "Macho");
 
     private String abbreaviation;
+    private String classification;
 
-    PetSex(String abbreaviation) {
+    PetSex(String abbreaviation, String classification) {
         this.abbreaviation = abbreaviation;
+        this.classification = classification;
     }
 
     public String getAbbreaviation() {
         return abbreaviation;
+    }
+
+    public String getClassification() {
+        return classification;
     }
 
     public static PetSex selectSex(String abbreaviation){

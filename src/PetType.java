@@ -2,19 +2,19 @@ public enum PetType {
     GATO("Gato"),
     CACHORRO("Cachorro");
 
-    private String type;
+    private String classification;
 
-    PetType(String type){
-        this.type = type;
+    PetType(String classification){
+        this.classification = classification;
     }
 
-    public String getType(){
-        return type;
+    public String getClassification(){
+        return classification;
     }
 
-    public static PetType selectType(String type){
+    public static PetType selectType(String classification){
         for (PetType petType : PetType.values()){
-            if(petType.type.equalsIgnoreCase(type)){
+            if(petType.classification.equalsIgnoreCase(classification)){
                 return petType;
             }
         }
