@@ -24,7 +24,7 @@ public class Main {
                         "Por favor, digite um número entre 1 e 6");
                 sc.nextLine();
             }
-            break;
+
 
 
         } while (true);

@@ -1,3 +1,6 @@
+import exceptions.PetValidateException;
+
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,92 +12,100 @@ public class PetService {
         List<String> questions = files.readForm();
         String name = null, type = null, sex = null, breed = null;
         String street = null, number = null, city = null;
-        double age = 0, weight = 0;
+        Double age = null, weight = null;
         System.out.println("Para cadastrar um pet, responda as seguintes perguntas:");
         for (int i = 1; i <= (questions.size()); i++) {
             System.out.println(questions.get(i - 1));
+            boolean isValid = false;
             switch (i) {
                 case 1:
                     do {
-                        name = sc.nextLine();
-                        if (!name.matches("([a-zA-z\\s]+|)")) {
-                            System.out.println("Erro: não é permitido o uso de números ou caracteres especiais.");
-                            System.out.println("Por favor, digite o nome do pet novamente: ");
+                        try {
+                            name = sc.nextLine();
+                            isValid = Validate.validateName(name);
+                            name = Validate.isEmpty(name);
+
+                        } catch (PetValidateException e) {
+                            System.out.println("Erro: " + e.getMessage());
+                            System.out.println("Digite o nome do pet novamente.");
                         }
-                    } while (!name.matches("([a-zA-z\\s]+|)"));
+                    } while (!isValid);
                     break;
 
                 case 2:
                     do {
                         type = sc.nextLine();
-                        if (!type.equalsIgnoreCase("cachorro") && !type.equalsIgnoreCase("gato")) {
-                            System.out.println("Erro: Resposta inválida. Por favor, digite novamente.");
-                        }
-                    } while (!type.equalsIgnoreCase("cachorro") && !type.equalsIgnoreCase("gato"));
+                        isValid = Validate.validateType(type);
+                    } while (!isValid);
                     break;
 
                 case 3:
                     do {
                         sex = sc.nextLine();
-                        if (!sex.equalsIgnoreCase("f") && !sex.equalsIgnoreCase("m")) {
-                            System.out.println("Erro: Resposta inválida. Por favor, digite novamente.");
-                        }
-                    } while (!sex.equalsIgnoreCase("f") && !sex.equalsIgnoreCase("m"));
+                        isValid = Validate.validateSex(sex);
+                    } while (!isValid);
                     break;
 
                 case 4:
                     do {
                         System.out.print("Digite a rua: ");
                         street = sc.nextLine();
-                        if (street.isEmpty()) {
-                            System.out.println("Erro: O nome da rua não pode estar em branco.");
-                            System.out.println("Por favor, digite novamente.");
-                        }
-                    } while (street.isEmpty());
+                        isValid = Validate.validateStreet(street);
+                    } while (!isValid);
 
                     System.out.print("Digite o número: ");
                     number = sc.nextLine();
+                    number = Validate.isEmpty(number);
 
                     do {
                         System.out.print("Digite a cidade: ");
                         city = sc.nextLine();
-                        if (city.isEmpty()) {
-                            System.out.println("Erro: O nome da cidade não pode estar em branco.");
-                            System.out.println("Por favor, digite novamente.");
-
-                        }
-                    } while (city.isEmpty());
+                        isValid = Validate.validateCity(city);
+                    } while (!isValid);
                     break;
 
                 case 5:
-                    String tempo;
                     do {
-                        System.out.println("A idade é em meses ou anos?");
-                        tempo = sc.nextLine();
-                        if (!tempo.equalsIgnoreCase("meses") && !tempo.equalsIgnoreCase("anos")) {
-                            System.out.println("Erro: Opção inválida. Por favor, digite novamente.");
+                        try {
+                            String auxAge = sc.nextLine();
+                            if (auxAge.isBlank()) break;
+                            isValid = Validate.validateAge(auxAge);
+                            age = Double.parseDouble(auxAge);
+                        } catch (PetValidateException e) {
+                            System.out.println("Erro: " + e.getMessage());
+                            System.out.println("Digite a idade novamente.");
                         }
-                    } while (!tempo.equalsIgnoreCase("meses") && !tempo.equalsIgnoreCase("anos"));
+                    } while (!isValid);
 
-                    System.out.println("Digite a idade em " + tempo);
-                    age = sc.nextDouble();
-                    if (tempo.equalsIgnoreCase("meses")) age /= 12;
+                    if (age != null) {
+                        String date;
+                        System.out.println("A idade é em meses ou anos?");
+                        do {
+                            date = sc.nextLine();
+                            isValid = Validate.validateDate(date);
+                            if (date.equalsIgnoreCase("meses")) age /= 12;
+                        } while (!isValid);
+                    }
                     break;
+
                 case 6:
-                    weight = sc.nextDouble();
-                    if (weight < 0.5 || weight > 60)
-                        throw new RuntimeException("O peso precisa ser entre 0.5kg e 60kg.");
-                    break;
+                    do {
+                        try {
+                            String auxWeight = sc.nextLine();
+                            if (auxWeight.isBlank()) break;
+                            isValid = Validate.validateWeight(auxWeight);
+                            weight = Double.parseDouble(auxWeight);
+                        } catch (PetValidateException e) {
+                            System.out.println("Erro: " + e.getMessage());
+                            System.out.println("Digite o peso novamente.");
+                        }
+                    } while (!isValid);
                 case 7:
-                    sc.nextLine();
                     do {
                         breed = sc.nextLine();
-                        if (!breed.matches("([a-zA-z\\s]+|)")) {
-                            System.out.println("Erro: não é permitido o uso de números ou caracteres especiais.");
-                            System.out.println("Por favor, digite a raça do pet novamente: ");
-                        }
-
-                    } while (!breed.matches("([a-zA-z\\s]+|)"));
+                        isValid = Validate.validateBreed(breed);
+                        breed = Validate.isEmpty(breed);
+                    } while (!isValid);
             }
         }
 
@@ -102,7 +113,8 @@ public class PetService {
         PetType petType = PetType.selectType(type);
         PetSex petSex = PetSex.selectSex(sex);
         Pet petCreated = new Pet(name, petType, petSex, address, age, weight, breed);
-        FileService.savePet(petCreated);
+        //FileService.savePet(petCreated);
+        System.out.println(petCreated);
     }
 
 }

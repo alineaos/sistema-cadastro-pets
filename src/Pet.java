@@ -3,12 +3,12 @@ public class Pet {
     private PetType type;
     private PetSex sex;
     private Address address;
-    private double age;
-    private double weight;
+    private Double age;
+    private Double weight;
     private String breed;
 
 
-    public Pet(String name, PetType type, PetSex sex, Address address, double age, double weight, String breed) {
+    public Pet(String name, PetType type, PetSex sex, Address address, Double age, Double weight, String breed) {
         this.name = name;
         this.type = type;
         this.sex = sex;
@@ -34,11 +34,11 @@ public class Pet {
         return address;
     }
 
-    public double getAge() {
+    public Double getAge() {
         return age;
     }
 
-    public double getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
@@ -58,10 +58,10 @@ public class Pet {
                 .append("\n4- ")
                 .append(this.getAddress())
                 .append("\n5- ")
-                .append(String.format("%.2f", this.getAge()))
-                .append(" anos\n6- ")
-                .append(this.getWeight())
-                .append("kg\n7- ")
+                .append(this.getAge() == null ? Validate.NAO_INFORMADO : String.format("%.2f anos", this.getAge()))
+                .append("\n6- ")
+                .append(this.getWeight() == null ? Validate.NAO_INFORMADO : String.format("%.2fkg", this.getWeight()))
+                .append("\n7- ")
                 .append(this.getBreed());
         return sb.toString();
     }
