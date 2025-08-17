@@ -1,3 +1,8 @@
+package models;
+
+import models.enums.PetSex;
+import models.enums.PetType;
+
 public class Pet {
     private String name;
     private PetType type;
@@ -6,7 +11,6 @@ public class Pet {
     private Double age;
     private Double weight;
     private String breed;
-
 
     public Pet(String name, PetType type, PetSex sex, Address address, Double age, Double weight, String breed) {
         this.name = name;

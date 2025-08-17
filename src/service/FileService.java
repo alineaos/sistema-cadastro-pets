@@ -1,9 +1,17 @@
-import java.io.*;
+package service;
+
+import models.Pet;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class FileService {
 
@@ -13,18 +21,12 @@ public class FileService {
         String fileName = (localDateTime.format(formatter) + pet.getName()
                 .toUpperCase()
                 .replaceAll(" ", ""));
-        File file = new File("petsCadastrados/" + fileName);
-        try {
-            file.createNewFile();
-        } catch (IOException e) {
-            System.out.println("Não foi possível criar o arquivo." + e.getMessage());
-        }
-
-        try (FileWriter fileWriter = new FileWriter(file);
+        try (FileWriter fileWriter = new FileWriter("petsCadastrados/" + fileName);
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
             bufferedWriter.write(pet.toString());
+            System.out.println("models.Pet cadastrado com sucesso.");
         } catch (IOException e) {
-            System.out.println("Não foi possível escrever no arquivo." + e.getMessage());
+            System.out.println("Erro ao cadastrar o pet:" + e.getMessage());
         }
 
     }

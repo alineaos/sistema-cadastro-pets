@@ -1,6 +1,12 @@
-import exceptions.PetValidateException;
+package service;
 
-import java.util.InputMismatchException;
+import exceptions.PetValidateException;
+import models.Address;
+import models.Pet;
+import models.Validate;
+import models.enums.PetSex;
+import models.enums.PetType;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -71,7 +77,7 @@ public class PetService {
                             if (auxAge.isBlank()) break;
                             isValid = Validate.validateAge(auxAge);
                             age = Double.parseDouble(auxAge);
-                        } catch (PetValidateException e) {
+                        } catch (PetValidateException | NumberFormatException e) {
                             System.out.println("Erro: " + e.getMessage());
                             System.out.println("Digite a idade novamente.");
                         }
@@ -82,6 +88,10 @@ public class PetService {
                         System.out.println("A idade é em meses ou anos?");
                         do {
                             date = sc.nextLine();
+                            if (date.isEmpty()) {
+                                age = null;
+                                break;
+                            }
                             isValid = Validate.validateDate(date);
                             if (date.equalsIgnoreCase("meses")) age /= 12;
                         } while (!isValid);
@@ -95,11 +105,13 @@ public class PetService {
                             if (auxWeight.isBlank()) break;
                             isValid = Validate.validateWeight(auxWeight);
                             weight = Double.parseDouble(auxWeight);
-                        } catch (PetValidateException e) {
+                        } catch (PetValidateException  | NumberFormatException e) {
                             System.out.println("Erro: " + e.getMessage());
                             System.out.println("Digite o peso novamente.");
                         }
                     } while (!isValid);
+                    break;
+
                 case 7:
                     do {
                         breed = sc.nextLine();
@@ -113,8 +125,7 @@ public class PetService {
         PetType petType = PetType.selectType(type);
         PetSex petSex = PetSex.selectSex(sex);
         Pet petCreated = new Pet(name, petType, petSex, address, age, weight, breed);
-        //FileService.savePet(petCreated);
-        System.out.println(petCreated);
+        FileService.savePet(petCreated);
     }
 
 }

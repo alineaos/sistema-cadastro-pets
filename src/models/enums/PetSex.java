@@ -1,3 +1,5 @@
+package models.enums;
+
 public enum PetSex {
     FEMEA("F", "Femea"),
     MACHO("M", "Macho");

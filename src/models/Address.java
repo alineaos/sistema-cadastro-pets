@@ -1,3 +1,5 @@
+package models;
+
 public class Address {
     private String street;
     private String number;
