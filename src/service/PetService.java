@@ -105,7 +105,7 @@ public class PetService {
                             if (auxWeight.isBlank()) break;
                             isValid = Validate.validateWeight(auxWeight);
                             weight = Double.parseDouble(auxWeight);
-                        } catch (PetValidateException  | NumberFormatException e) {
+                        } catch (PetValidateException | NumberFormatException e) {
                             System.out.println("Erro: " + e.getMessage());
                             System.out.println("Digite o peso novamente.");
                         }
@@ -127,5 +127,18 @@ public class PetService {
         Pet petCreated = new Pet(name, petType, petSex, address, age, weight, breed);
         FileService.savePet(petCreated);
     }
+
+    public static void listPet() {
+        List<String> allPetsList = FileService.petsFileReader();
+        int i = 1;
+
+        System.out.println("Lista dos pets cadastrados no sistema:");
+        System.out.println("--------------------------------------");
+        for (String pet : allPetsList) {
+            System.out.printf("%d. %s\n", i, pet);
+            i++;
+        }
+    }
+
 
 }

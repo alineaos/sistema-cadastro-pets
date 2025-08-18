@@ -21,9 +21,8 @@ public class FileService {
         String fileName = (localDateTime.format(formatter) + pet.getName()
                 .toUpperCase()
                 .replaceAll(" ", ""));
-        try (FileWriter fileWriter = new FileWriter("petsCadastrados/" + fileName);
-             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
-            bufferedWriter.write(pet.toString());
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("petsCadastrados/" + fileName))) {
+            bw.write(pet.toString());
             System.out.println("models.Pet cadastrado com sucesso.");
         } catch (IOException e) {
             System.out.println("Erro ao cadastrar o pet:" + e.getMessage());
@@ -31,25 +30,32 @@ public class FileService {
 
     }
 
-    public static void writeFile(File file, String text) {
-        try (FileWriter fileWriter = new FileWriter(file);
-             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
-            bufferedWriter.write(text);
-        } catch (IOException e) {
-            System.out.println("Não foi possível escrever no arquivo." + e.getMessage());
-        }
-    }
 
-    public void readfile(File file) {
-        try (FileReader fileReader = new FileReader(file);
-             BufferedReader bufferedReader = new BufferedReader(fileReader)) {
-            String linha;
-            while ((linha = bufferedReader.readLine()) != null) {
-                System.out.println(linha);
+    public static List<String> petsFileReader() {
+        File path = new File("petsCadastrados/");
+        File[] files = path.listFiles();
+        List<String> allPets = new ArrayList<>();
+        assert files != null;
+        for (File file : files) {
+
+            if (file.getName().equals("formulario.txt")) continue;
+
+            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+                String line;
+                StringBuilder sb = new StringBuilder();
+                while ((line = br.readLine()) != null) {
+                    sb.append(line.replaceAll("[1-7]- ", "")).append(" - ");
+                }
+
+                if(sb.length() > 3){
+                    sb.setLength(sb.length() - 3);
+                }
+                allPets.add(sb.toString());
+            } catch (IOException e) {
+                System.out.println("Erro ao listar os pets: " + e.getMessage());
             }
-        } catch (IOException e) {
-            System.out.println("Não foi possível ler o arquivo." + e.getMessage());
         }
+        return allPets;
     }
 
     public List<String> readForm() {

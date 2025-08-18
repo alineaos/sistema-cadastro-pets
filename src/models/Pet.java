@@ -3,6 +3,8 @@ package models;
 import models.enums.PetSex;
 import models.enums.PetType;
 
+import java.util.List;
+
 public class Pet {
     private String name;
     private PetType type;
@@ -52,21 +54,21 @@ public class Pet {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("1- ")
-                .append(this.getName())
-                .append("\n2- ")
-                .append(this.getType().getClassification())
-                .append("\n3- ")
-                .append(this.getSex().getClassification())
-                .append("\n4- ")
-                .append(this.getAddress())
-                .append("\n5- ")
-                .append(this.getAge() == null ? Validate.NAO_INFORMADO : String.format("%.2f anos", this.getAge()))
-                .append("\n6- ")
-                .append(this.getWeight() == null ? Validate.NAO_INFORMADO : String.format("%.2fkg", this.getWeight()))
-                .append("\n7- ")
-                .append(this.getBreed());
-        return sb.toString();
+        return "1- " +
+                this.getName() +
+                "\n2- " +
+                this.getType().getClassification() +
+                "\n3- " +
+                this.getSex().getClassification() +
+                "\n4- " +
+                this.getAddress() +
+                "\n5- " +
+                (this.getAge() == null ? Validate.NAO_INFORMADO : String.format("%.2f anos", this.getAge())) +
+                "\n6- " +
+                (this.getWeight() == null ? Validate.NAO_INFORMADO : String.format("%.2fkg", this.getWeight())) +
+                "\n7- " +
+                this.getBreed();
     }
+
+
 }
