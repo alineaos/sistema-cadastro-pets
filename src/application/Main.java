@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class Main {
 
     public static Scanner sc = new Scanner(System.in);
+
     public static void main(String[] args) {
         int menuOption;
         do {
@@ -21,7 +22,7 @@ public class Main {
                 switch (menuOption) {
                     case 1 -> PetService.createPet();
                     case 2 -> PetService.listPet();
-                    case 3 -> PetService.listPetWithFilter();
+                    case 3 -> Menu.searchPetWithFiltersMenu();
                     case 6 -> {return;}
                 }
             } catch (InputMismatchException e) {

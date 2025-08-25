@@ -1,18 +1,14 @@
 package service;
 
 import exceptions.PetValidateException;
-import menu.Menu;
 import models.Address;
 import models.Pet;
 import models.Validate;
 import models.enums.PetSex;
 import models.enums.PetType;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
 
 public class PetService {
     public static final Scanner sc = new Scanner(System.in);
@@ -144,36 +140,5 @@ public class PetService {
         }
     }
 
-    public static void listPetWithFilter() {
-        Map<String, String> parameters = Menu.searchPetMenu();
-        Set<Pet> filteredList = new HashSet<>();
-        List<Pet> allPets = FileService.fileToPet();
-        for (Pet pet : allPets) {
-            boolean matchesAll = true;
-
-            for (Map.Entry<String, String> entry : parameters.entrySet()) {
-                String criteriaKey = entry.getKey();
-                String criteriaValue = entry.getValue();
-
-                if(!Validate.petMatchesFilters(pet, criteriaKey, criteriaValue)){
-                    matchesAll = false;
-                    break;
-                }
-            }
-
-            if(matchesAll){
-                filteredList.add(pet);
-            }
-        }
-        if(!filteredList.isEmpty()) {
-            int i = 1;
-            for (Pet p : filteredList) {
-                System.out.println(i + "- " + p.petFilteredString());
-                i++;
-            }
-        } else {
-            System.out.println("Nenhum pet encontrado com os critérios selecionados.");
-        }
-    }
 
 }
