@@ -83,6 +83,31 @@ public class Validate {
         return true;
     }
 
+    public static Double stringToAge(String age) {
+        if (age.equalsIgnoreCase("NÃO INFORMADO")) {
+            return null;
+        }
+        return Double.parseDouble(age.replace(" anos", "").replace(",", "."));
+    }
 
+    public static Double stringToWeight(String age) {
+        if (age.equalsIgnoreCase("NÃO INFORMADO")) {
+            return null;
+        }
+        return Double.parseDouble(age.replace("kg", "").replace(",", "."));
+    }
 
+    public static boolean petMatchesFilters(Pet pet, String key, String value){
+        return switch (key) {
+            case "Name" -> pet.getName().toLowerCase().contains(value.toLowerCase().toLowerCase());
+            case "Type" -> pet.getType().getClassification().toLowerCase().contains(value.toLowerCase());
+            case "Sex" -> pet.getSex().getClassification().toLowerCase().contains(value.toLowerCase());
+            case "Age" -> pet.getAge() != null && pet.getAge().toString().toLowerCase().contains(value.toLowerCase());
+            case "Weight" ->
+                    pet.getWeight() != null && pet.getWeight().toString().toLowerCase().contains(value.toLowerCase());
+            case "Breed" -> pet.getBreed().toLowerCase().contains(value.toLowerCase());
+            case "Address" -> pet.getAddress().toString().toLowerCase().contains(value.toLowerCase());
+            default -> false;
+        };
+    }
 }

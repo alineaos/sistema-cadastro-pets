@@ -3,19 +3,16 @@ package application;
 
 import menu.Menu;
 import service.PetService;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
 
-    public static Menu menu = new Menu();
     public static Scanner sc = new Scanner(System.in);
-
     public static void main(String[] args) {
         int menuOption;
         do {
-            menu.homeMenu();
+            Menu.homeMenu();
             try {
                 menuOption = sc.nextInt();
                 if (menuOption < 1 || menuOption > 6) {
@@ -24,7 +21,7 @@ public class Main {
                 switch (menuOption) {
                     case 1 -> PetService.createPet();
                     case 2 -> PetService.listPet();
-                    case 3 -> menu.searchPetCriteriaMenu();
+                    case 3 -> PetService.listPetWithFilter();
                     case 6 -> {return;}
                 }
             } catch (InputMismatchException e) {

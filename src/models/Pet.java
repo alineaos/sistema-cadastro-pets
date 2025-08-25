@@ -70,5 +70,21 @@ public class Pet {
                 this.getBreed();
     }
 
+    public String petFilteredString() {
+        return this.getName() +
+                ", " +
+                this.getType().getClassification() +
+                ", " +
+                this.getSex().getClassification() +
+                ", " +
+                this.getAddress() +
+                ", " +
+                (this.getAge() == null ? Validate.NAO_INFORMADO : String.format("%.2f anos", this.getAge())) +
+                ", " +
+                (this.getWeight() == null ? Validate.NAO_INFORMADO : String.format("%.2fkg", this.getWeight())) +
+                ", " +
+                this.getBreed();
+    }
+
 
 }
