@@ -20,7 +20,7 @@ public class Menu {
         System.out.println("[6] Sair");
     }
 
-    public static Map<String, String> searchPetMenu() {
+    public static Map<String, String> searchPetWithFilterMenu() {
         Map<Integer, PetFilters> filters = PetFilters.filterMap();
         Map<String, String> parameters = new HashMap<>();
         Scanner sc = new Scanner(System.in);

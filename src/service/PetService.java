@@ -145,7 +145,7 @@ public class PetService {
     }
 
     public static void listPetWithFilter() {
-        Map<String, String> parameters = Menu.searchPetMenu();
+        Map<String, String> parameters = Menu.searchPetWithFilterMenu();
         Set<Pet> filteredList = new HashSet<>();
         List<Pet> allPets = FileService.fileToPet();
         for (Pet pet : allPets) {
