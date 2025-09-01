@@ -11,6 +11,8 @@ Os administradores do abrigo podem usar as seguintes funcionalidades:
 - Alterar o cadastro de um animal
 - Deletar o cadastro de um animal
 
+Para cadastrar um animal, o usuário deverá preencher o nome, tipo (gato ou cachorro), sexo do animal, endereço onde foi encontrado, idade, peso e raça.
+
 Cada cadastro será armazenado em um arquivo .txt, no qual o nome recebe a data e hora no momento da criação do arquivo e o nome do pet.
 
 ## 🚀 Executando o Projeto
