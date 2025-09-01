@@ -146,4 +146,26 @@ public class FileService {
         }
     }
 
+    public static void deletePet(Pet petToDelete, boolean isConfirmed){
+        if (isConfirmed){
+            File fileToDelete = null;
+
+            assert files != null;
+            for (File f : files) {
+                if (f.getName().contains(petToDelete.getName().toUpperCase().replaceAll(" ", ""))) {
+                    fileToDelete = f;
+                    break;
+                }
+            }
+            if (fileToDelete == null){
+                System.out.println("Não foi possível encontrar o arquivo do pet selecionado no sistema.");
+                return;
+            }
+            if (fileToDelete.delete()){
+                System.out.println("Cadastro deletado do sistema com sucesso.");
+            } else {
+                System.out.println("Erro ao deletar o cadastro do sistema.");
+            }
+        }
+    }
 }

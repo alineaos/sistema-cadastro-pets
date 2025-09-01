@@ -33,11 +33,9 @@ public class Menu {
 
         do {
             System.out.println("Você deseja realizar a busca com 1 ou 2 parâmetros?");
-            System.out.println("Digite 0 para voltar ao menu anterior.");
             criteriasOption = sc.nextInt();
-        } while (criteriasOption < 0 || criteriasOption > 2);
+        } while (criteriasOption < 1 || criteriasOption > 2);
 
-        if (criteriasOption == 0) return parameters;
 
         for (int i = 1; i <= criteriasOption; i++) {
             int option;
@@ -60,7 +58,7 @@ public class Menu {
                 System.out.printf("Digite o/a %s do pet: ", filters.get(option).getPortugueseWord());
                 String parameter = sc.nextLine();
                 parameters.put(filters.get(option).getEnglishFilter(), parameter);
-            } else if (option == 7) return parameters;
+            } else if (option == 8) return parameters;
         }
         return parameters;
     }

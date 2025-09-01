@@ -23,6 +23,7 @@ public class Main {
                     case 2 -> PetService.listPet();
                     case 3 -> PetService.listPetWithFilter();
                     case 4 -> PetService.updatePet();
+                    case 5 -> PetService.deletePet();
                     case 6 -> {return;}
                 }
             } catch (InputMismatchException e) {
