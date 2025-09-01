@@ -4,15 +4,13 @@ import exceptions.PetValidateException;
 import menu.Menu;
 import models.Address;
 import models.Pet;
-import models.Validate;
 import models.enums.PetSex;
 import models.enums.PetType;
 
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
 
 public class PetService {
     public static final Scanner sc = new Scanner(System.in);
@@ -144,10 +142,11 @@ public class PetService {
         }
     }
 
-    public static void listPetWithFilter() {
+    public static Map<Integer, Pet> listPetWithFilter() {
         Map<String, String> parameters = Menu.searchPetWithFilterMenu();
-        Set<Pet> filteredList = new HashSet<>();
+        Map<Integer, Pet> filteredList = new HashMap<>();
         List<Pet> allPets = FileService.fileToPet();
+        int i = 0;
         for (Pet pet : allPets) {
             boolean matchesAll = true;
 
@@ -155,25 +154,68 @@ public class PetService {
                 String criteriaKey = entry.getKey();
                 String criteriaValue = entry.getValue();
 
-                if(!Validate.petMatchesFilters(pet, criteriaKey, criteriaValue)){
+                if (!Validate.petMatchesFilters(pet, criteriaKey, criteriaValue)) {
                     matchesAll = false;
                     break;
                 }
             }
 
-            if(matchesAll){
-                filteredList.add(pet);
+            if (matchesAll) {
+                i++;
+                filteredList.put(i, pet);
             }
         }
-        if(!filteredList.isEmpty()) {
-            int i = 1;
-            for (Pet p : filteredList) {
-                System.out.println(i + "- " + p.petFilteredString());
-                i++;
+        if (!filteredList.isEmpty()) {
+            System.out.println("Foram encontrados os seguintes pets com os critérios selecionados:");
+            for (Map.Entry<Integer, Pet> petEntry : filteredList.entrySet()) {
+                System.out.println(petEntry.getKey() + "- " + petEntry.getValue().petFilteredString());
             }
         } else {
             System.out.println("Nenhum pet encontrado com os critérios selecionados.");
         }
+
+        return filteredList;
+    }
+
+    public static void updatePet() {
+        Map<Integer, Pet> filteredList = listPetWithFilter();
+        System.out.println("De qual pet da lista acima você deseja alterar os dados? Digite o número: ");
+        System.out.println("Digite 0 para voltar ao menu inicial");
+        int id = sc.nextInt();
+        if (id == 0) return;
+        Pet petToUpdate = null;
+        boolean hasUpdatedName = false;
+        if (!filteredList.isEmpty()) {
+            for (Map.Entry<Integer, Pet> petEntry : filteredList.entrySet()) {
+                if (petEntry.getKey() == id) {
+                    petToUpdate = petEntry.getValue();
+                    break;
+                }
+            }
+        }
+
+        String newData;
+        int option;
+        do {
+            System.out.println("Qual dado do pet você deseja alterar?");
+            System.out.println("[1] Nome");
+            System.out.println("[2] Idade");
+            System.out.println("[3] Peso");
+            System.out.println("[4] Raça");
+            System.out.println("[5] Endereço");
+            System.out.println("[6] Voltar para o menu inicial");
+            option = sc.nextInt();
+            if (option == 6) return;
+        } while (option < 0 || option > 6);
+        sc.nextLine();
+        System.out.println("Digite o novo dado: ");
+        newData = sc.nextLine();
+
+        assert petToUpdate != null;
+        String oldPetName = petToUpdate.getName();
+        Pet updatedPet = Validate.dataToUpdate(petToUpdate, option, newData);
+        if (!updatedPet.getName().equalsIgnoreCase(oldPetName)) hasUpdatedName = true;
+        FileService.updatePet(updatedPet, hasUpdatedName, oldPetName);
     }
 
 }

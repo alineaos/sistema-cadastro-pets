@@ -1,9 +1,11 @@
-package models;
+package service;
 
 import exceptions.PetValidateException;
+import models.Address;
+import models.Pet;
 
 public class Validate {
-    final static String NAO_INFORMADO = "NÃO INFORMADO";
+    public final static String NAO_INFORMADO = "NÃO INFORMADO";
 
     public static String isEmpty(String line) {
         if (line.isBlank()) {
@@ -97,7 +99,7 @@ public class Validate {
         return Double.parseDouble(age.replace("kg", "").replace(",", "."));
     }
 
-    public static boolean petMatchesFilters(Pet pet, String key, String value){
+    public static boolean petMatchesFilters(Pet pet, String key, String value) {
         return switch (key) {
             case "Name" -> pet.getName().toLowerCase().contains(value.toLowerCase().toLowerCase());
             case "Type" -> pet.getType().getClassification().toLowerCase().contains(value.toLowerCase());
@@ -109,5 +111,34 @@ public class Validate {
             case "Address" -> pet.getAddress().toString().toLowerCase().contains(value.toLowerCase());
             default -> false;
         };
+    }
+
+    public static Pet dataToUpdate(Pet petToUpdate, int option, String newData) {
+        switch (option) {
+            case 1:
+                validateName(newData);
+                petToUpdate.setName(newData);
+                break;
+            case 2:
+                validateAge(newData);
+                petToUpdate.setAge(Double.parseDouble(newData));
+                break;
+            case 3:
+                validateWeight(newData);
+                petToUpdate.setWeight(Double.parseDouble(newData));
+                break;
+            case 4:
+                validateBreed(newData);
+                petToUpdate.setBreed(newData);
+                break;
+            case 5:
+                String[] stringToAddress = petToUpdate.getAddress().toString().split(",");
+                validateStreet(stringToAddress[0]);
+                stringToAddress[1] = isEmpty(stringToAddress[1]);
+                validateCity(stringToAddress[2]);
+                Address newAddress = new Address(stringToAddress[0], stringToAddress[1], stringToAddress[2]);
+                petToUpdate.setAddress(newAddress);
+        }
+        return petToUpdate;
     }
 }

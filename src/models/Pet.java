@@ -2,13 +2,12 @@ package models;
 
 import models.enums.PetSex;
 import models.enums.PetType;
-
-import java.util.List;
+import service.Validate;
 
 public class Pet {
     private String name;
-    private PetType type;
-    private PetSex sex;
+    private final PetType type;
+    private final PetSex sex;
     private Address address;
     private Double age;
     private Double weight;
@@ -21,6 +20,26 @@ public class Pet {
         this.address = address;
         this.age = age;
         this.weight = weight;
+        this.breed = breed;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public void setAge(Double age) {
+        this.age = age;
+    }
+
+    public void setWeight(Double weight) {
+        this.weight = weight;
+    }
+
+    public void setBreed(String breed) {
         this.breed = breed;
     }
 
