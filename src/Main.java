@@ -1,6 +1,3 @@
-package application;
-
-
 import menu.Menu;
 import service.PetService;
 import java.util.InputMismatchException;
