@@ -39,6 +39,7 @@ javac -d bin -sourcepath src src/Main.java
 java -cp bin Main
 ```
 
+---
 
 ### Projeto proposto por Lucas Carrilho - [@devmagro](https://www.linkedin.com/in/karilho/)
 
