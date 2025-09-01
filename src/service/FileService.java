@@ -113,7 +113,7 @@ public class FileService {
 
         assert files != null;
         for (File f : files) {
-            if (f.getName().contains(oldPetName.toUpperCase())) {
+            if (f.getName().contains(oldPetName.toUpperCase().replaceAll(" ", ""))) {
                 fileToUpdate = f;
                 break;
             }

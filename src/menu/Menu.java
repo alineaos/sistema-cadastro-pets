@@ -34,7 +34,7 @@ public class Menu {
         do {
             System.out.println("Você deseja realizar a busca com 1 ou 2 parâmetros?");
             criteriasOption = sc.nextInt();
-        } while (criteriasOption < 1 || criteriasOption > 2);
+        } while (criteriasOption < 0 || criteriasOption > 2);
 
 
         for (int i = 1; i <= criteriasOption; i++) {

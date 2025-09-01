@@ -179,6 +179,9 @@ public class PetService {
 
     public static void updatePet() {
         Map<Integer, Pet> filteredList = listPetWithFilter();
+        if (filteredList.isEmpty()) {
+            return;
+        }
         System.out.println("De qual pet da lista acima você deseja alterar os dados? Digite o número: ");
         System.out.println("Digite 0 para voltar ao menu inicial");
         int id = sc.nextInt();
@@ -186,14 +189,13 @@ public class PetService {
         Pet petToUpdate = null;
         boolean hasUpdatedName = false;
 
-        if (!filteredList.isEmpty()) {
             for (Map.Entry<Integer, Pet> petEntry : filteredList.entrySet()) {
                 if (petEntry.getKey() == id) {
                     petToUpdate = petEntry.getValue();
                     break;
                 }
             }
-        }
+
 
         String newData;
         int option;
@@ -219,37 +221,38 @@ public class PetService {
         FileService.updatePet(updatedPet, hasUpdatedName, oldPetName);
     }
 
-    public static void deletePet(){
+    public static void deletePet() {
         Map<Integer, Pet> filteredList = listPetWithFilter();
-        System.out.println("Qual pet da lista você deseja deletar? Digite o número: ");
-        System.out.println("Digite 0 para voltar ao menu inicial");
-        int id = sc.nextInt();
-        if (id == 0) return;
         Pet petToDelete = null;
-
-        if (!filteredList.isEmpty()) {
+        if (filteredList.isEmpty()) {
+            return;
+        }
+            System.out.println("Qual pet da lista você deseja deletar? Digite o número: ");
+            System.out.println("Digite 0 para voltar ao menu inicial");
+            int id = sc.nextInt();
+            if (id == 0) {
+                return;
+            }
             for (Map.Entry<Integer, Pet> petEntry : filteredList.entrySet()) {
                 if (petEntry.getKey() == id) {
                     petToDelete = petEntry.getValue();
                     break;
                 }
             }
-        }
-        boolean isConfirmed = false;
-        String confirmation;
-        do {
-            System.out.println("Pet selecionado:");
-            System.out.println(petToDelete);
-            System.out.println("Você tem certeza que deseja excluir o cadastro do pet?");
-            System.out.println("Digite [S] para Sim e [N] para Não");
-            confirmation = sc.next();
-        } while (!confirmation.equalsIgnoreCase("S") && !confirmation.equalsIgnoreCase("N"));
+            boolean isConfirmed = false;
+            String confirmation;
+            do {
+                System.out.println("Pet selecionado:");
+                System.out.println(petToDelete);
+                System.out.println("Você tem certeza que deseja excluir o cadastro do pet?");
+                System.out.println("Digite [S] para Sim e [N] para Não");
+                confirmation = sc.next();
+            } while (!confirmation.equalsIgnoreCase("S") && !confirmation.equalsIgnoreCase("N"));
 
-        if (confirmation.equalsIgnoreCase("S")){
-            isConfirmed = true;
-        }
-
-        FileService.deletePet(petToDelete, isConfirmed);
+            if (confirmation.equalsIgnoreCase("S")) {
+                isConfirmed = true;
+            }
+            FileService.deletePet(petToDelete, isConfirmed);
     }
 
 }

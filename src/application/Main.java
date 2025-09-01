@@ -27,8 +27,7 @@ public class Main {
                     case 6 -> {return;}
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Erro: Letras e caracteres especiais não são aceitos. " +
-                        "Por favor, digite um número entre 1 e 6");
+                System.out.println("Erro: Letras e caracteres especiais não são aceitos.");
                 sc.nextLine();
             }
 
