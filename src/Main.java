@@ -21,7 +21,9 @@ public class Main {
                     case 3 -> PetService.listPetWithFilter();
                     case 4 -> PetService.updatePet();
                     case 5 -> PetService.deletePet();
-                    case 6 -> {return;}
+                    case 6 -> {
+                        System.out.println("Programa encerrado");
+                        return;}
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Erro: Letras e caracteres especiais não são aceitos.");

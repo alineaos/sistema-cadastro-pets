@@ -58,7 +58,10 @@ public class Menu {
                 System.out.printf("Digite o/a %s do pet: ", filters.get(option).getPortugueseWord());
                 String parameter = sc.nextLine();
                 parameters.put(filters.get(option).getEnglishFilter(), parameter);
-            } else if (option == 8) return parameters;
+            } else if (option == 8) {
+                System.out.println("Retornando para o menu inicial...");
+                return parameters;
+            }
         }
         return parameters;
     }

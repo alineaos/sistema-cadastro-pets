@@ -185,7 +185,10 @@ public class PetService {
         System.out.println("De qual pet da lista acima você deseja alterar os dados? Digite o número: ");
         System.out.println("Digite 0 para voltar ao menu inicial");
         int id = sc.nextInt();
-        if (id == 0) return;
+        if (id == 0) {
+            System.out.println("Retornando para o Menu Inicial...");
+            return;
+        }
         Pet petToUpdate = null;
         boolean hasUpdatedName = false;
 
@@ -231,6 +234,7 @@ public class PetService {
             System.out.println("Digite 0 para voltar ao menu inicial");
             int id = sc.nextInt();
             if (id == 0) {
+                System.out.println("Retornando para o Menu Inicial...");
                 return;
             }
             for (Map.Entry<Integer, Pet> petEntry : filteredList.entrySet()) {
@@ -251,6 +255,9 @@ public class PetService {
 
             if (confirmation.equalsIgnoreCase("S")) {
                 isConfirmed = true;
+            } else {
+                System.out.println("Ação cancelada pelo usuário.");
+                return;
             }
             FileService.deletePet(petToDelete, isConfirmed);
     }
