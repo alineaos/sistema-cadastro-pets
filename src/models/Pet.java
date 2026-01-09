@@ -2,7 +2,7 @@ package models;
 
 import models.enums.PetSex;
 import models.enums.PetType;
-import service.Validate;
+import repository.Validate;
 
 public class Pet {
     private String name;
