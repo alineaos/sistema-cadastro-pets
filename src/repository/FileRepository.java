@@ -1,4 +1,4 @@
-package service;
+package repository;
 
 import models.Address;
 import models.Pet;
@@ -16,7 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileService {
+public class FileRepository {
     public static final File[] files = new File("petsCadastrados/").listFiles();
 
     public static void savePet(Pet pet) {
@@ -33,7 +33,6 @@ public class FileService {
         }
 
     }
-
 
     public static List<String> petsFileReader() {
         List<String> allPets = new ArrayList<>();
@@ -92,7 +91,7 @@ public class FileService {
         return pets;
     }
 
-    public List<String> readForm() {
+    public static List<String> readForm() {
         File form = new File("petsCadastrados/formulario.txt");
         List<String> questions = new ArrayList<>();
         try (FileReader fileReader = new FileReader(form);

@@ -1,4 +1,4 @@
-package service;
+package repository;
 
 import exceptions.PetValidateException;
 import models.Address;
