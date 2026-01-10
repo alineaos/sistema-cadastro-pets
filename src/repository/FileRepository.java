@@ -78,8 +78,8 @@ public class FileRepository {
                                 PetType.selectType(aux.get(1)),
                                 PetSex.selectSex(aux.get(2).substring(0, 1)),
                                 fileToAdress,
-                                Validate.stringToAge(aux.get(4)),
-                                Validate.stringToWeight(aux.get(5)),
+                                ValidateRepository.stringToAge(aux.get(4)),
+                                ValidateRepository.stringToWeight(aux.get(5)),
                                 aux.get(6));
                         pets.add(filePet);
                     }
@@ -129,7 +129,7 @@ public class FileRepository {
                     .replaceAll(" ", "");
             File renameFile = new File(fileToUpdate.getParent(), newName);
             if (fileToUpdate.renameTo(renameFile)) {
-                fileToUpdate  = renameFile;
+                fileToUpdate = renameFile;
                 System.out.println("Arquivo renomeado com sucesso");
             } else {
                 System.out.println("Erro ao renomear o arquivo.");
@@ -145,26 +145,25 @@ public class FileRepository {
         }
     }
 
-    public static void deletePet(Pet petToDelete, boolean isConfirmed){
-        if (isConfirmed){
-            File fileToDelete = null;
+    public static void deletePet(Pet petToDelete) {
+        File fileToDelete = null;
 
-            assert files != null;
-            for (File f : files) {
-                if (f.getName().contains(petToDelete.getName().toUpperCase().replaceAll(" ", ""))) {
-                    fileToDelete = f;
-                    break;
-                }
-            }
-            if (fileToDelete == null){
-                System.out.println("Não foi possível encontrar o arquivo do pet selecionado no sistema.");
-                return;
-            }
-            if (fileToDelete.delete()){
-                System.out.println("Cadastro deletado do sistema com sucesso.");
-            } else {
-                System.out.println("Erro ao deletar o cadastro do sistema.");
+        assert files != null;
+        for (File f : files) {
+            if (f.getName().contains(petToDelete.getName().toUpperCase().replaceAll(" ", ""))) {
+                fileToDelete = f;
+                break;
             }
         }
+        if (fileToDelete == null) {
+            System.out.println("Não foi possível encontrar o arquivo do pet selecionado no sistema.");
+            return;
+        }
+        if (fileToDelete.delete()) {
+            System.out.println("Cadastro deletado do sistema com sucesso.");
+        } else {
+            System.out.println("Erro ao deletar o cadastro do sistema.");
+        }
+
     }
 }
