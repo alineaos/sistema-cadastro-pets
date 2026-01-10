@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -147,12 +148,17 @@ public class FileRepository {
 
     public static void deletePet(Pet petToDelete) {
         File fileToDelete = null;
-
         assert files != null;
         for (File f : files) {
-            if (f.getName().contains(petToDelete.getName().toUpperCase().replaceAll(" ", ""))) {
-                fileToDelete = f;
-                break;
+            try {
+                String fileReader = Files.readString(f.toPath()).trim().replaceAll("[\\s\\h\\xA0]+", " ");
+                String petToString = petToDelete.toString().trim().replaceAll("[\\s\\h\\xA0]+", " ");
+                if (petToString.equals(fileReader)) {
+                    fileToDelete = f;
+                    break;
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
         if (fileToDelete == null) {
