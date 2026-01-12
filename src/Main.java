@@ -7,11 +7,10 @@ public class Main {
 
     public static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
-        int menuOption;
         do {
             Menu.homeMenu();
             try {
-                menuOption = sc.nextInt();
+                int menuOption = sc.nextInt();
                 if (menuOption < 1 || menuOption > 6) {
                     System.out.println("Erro: Número inválido. Por favor, digite um número entre 1 e 6");
                 }

@@ -2,7 +2,7 @@ package models;
 
 import models.enums.PetSex;
 import models.enums.PetType;
-import repository.Validate;
+import repository.ValidateRepository;
 
 public class Pet {
     private String name;
@@ -82,9 +82,9 @@ public class Pet {
                 "\n4- " +
                 this.getAddress() +
                 "\n5- " +
-                (this.getAge() == null ? Validate.NAO_INFORMADO : String.format("%.2f anos", this.getAge())) +
+                (this.getAge() == null ? ValidateRepository.NAO_INFORMADO : String.format("%.2f anos", this.getAge())) +
                 "\n6- " +
-                (this.getWeight() == null ? Validate.NAO_INFORMADO : String.format("%.2fkg", this.getWeight())) +
+                (this.getWeight() == null ? ValidateRepository.NAO_INFORMADO : String.format("%.2fkg", this.getWeight())) +
                 "\n7- " +
                 this.getBreed();
     }
@@ -98,9 +98,9 @@ public class Pet {
                 ", " +
                 this.getAddress() +
                 ", " +
-                (this.getAge() == null ? Validate.NAO_INFORMADO : String.format("%.2f anos", this.getAge())) +
+                (this.getAge() == null ? ValidateRepository.NAO_INFORMADO : String.format("%.2f anos", this.getAge())) +
                 ", " +
-                (this.getWeight() == null ? Validate.NAO_INFORMADO : String.format("%.2fkg", this.getWeight())) +
+                (this.getWeight() == null ? ValidateRepository.NAO_INFORMADO : String.format("%.2fkg", this.getWeight())) +
                 ", " +
                 this.getBreed();
     }

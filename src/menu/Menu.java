@@ -24,7 +24,6 @@ public class Menu {
         Map<Integer, PetFilters> filters = PetFilters.filterMap();
         Map<String, String> parameters = new HashMap<>();
         Scanner sc = new Scanner(System.in);
-
         System.out.println("*****************");
         System.out.println("| BUSCA DE PETS |");
         System.out.println("*****************");
