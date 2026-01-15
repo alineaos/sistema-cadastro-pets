@@ -44,7 +44,7 @@ Este sistema foi desenvolvido exclusivamente em Java, sem o uso de frameworks ex
 ---
 1. **Clone o repositório**
 ```
-git clone https://github.com/alineaos/sistema-cadastro-pets.git
+git clone https://github.com/alineaos/sistema-cadastro-animais.git
 ```
 
 2. **Navegue até a pasta do repositório**
