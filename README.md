@@ -49,7 +49,7 @@ git clone https://github.com/alineaos/sistema-cadastro-animais.git
 
 2. **Navegue até a pasta do repositório**
 ```
-cd sistema-cadastro-pets
+cd sistema-cadastro-animais
 ```
 
 3. **Compile o projeto**
