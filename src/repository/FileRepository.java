@@ -18,7 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileRepository {
-    public static final File[] files = new File("petsCadastrados/").listFiles();
+    public static File[] getFiles(){
+        File folder = new File("petsCadastrados/");
+        File[] list = folder.listFiles();
+        return (list != null) ? list : new File[0];
+    }
 
     public static void savePet(Pet pet) {
         LocalDateTime localDateTime = LocalDateTime.now();
@@ -37,8 +41,7 @@ public class FileRepository {
 
     public static List<String> petsFileReader() {
         List<String> allPets = new ArrayList<>();
-        assert files != null;
-        for (File file : files) {
+        for (File file : getFiles()) {
 
             if (file.getName().equals("formulario.txt")) continue;
 
@@ -62,8 +65,7 @@ public class FileRepository {
 
     public static List<Pet> fileToPet() {
         List<Pet> pets = new ArrayList<>();
-        if (files != null) {
-            for (File file : files) {
+            for (File file : getFiles()) {
                 List<String> aux = new ArrayList<>();
                 if (file.getName().equals("formulario.txt")) continue;
 
@@ -88,7 +90,6 @@ public class FileRepository {
                     System.out.println("Erro ao listar os pets: " + e.getMessage());
                 }
             }
-        }
         return pets;
     }
 
@@ -111,8 +112,7 @@ public class FileRepository {
     public static void updatePet(Pet updatedPet, boolean hasUpdatedName, String oldPetName) {
         File fileToUpdate = null;
 
-        assert files != null;
-        for (File f : files) {
+        for (File f : getFiles()) {
             if (f.getName().contains(oldPetName.toUpperCase().replaceAll(" ", ""))) {
                 fileToUpdate = f;
                 break;
@@ -148,8 +148,7 @@ public class FileRepository {
 
     public static void deletePet(Pet petToDelete) {
         File fileToDelete = null;
-        assert files != null;
-        for (File f : files) {
+        for (File f : getFiles()) {
             try {
                 String fileReader = Files.readString(f.toPath()).trim().replaceAll("[\\s\\h\\xA0]+", " ");
                 String petToString = petToDelete.toString().trim().replaceAll("[\\s\\h\\xA0]+", " ");
