@@ -1,34 +1,55 @@
-# Sistema de Cadastros de Pets
+<p align="center">
+  <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java">
+  <img src="https://img.shields.io/badge/JDK-21+-informational?style=for-the-badge" alt="JDK 21+">
+</p>
+<h1 align="center">🐶 Sistema de Cadastro de Animais 🐱</h1>
 
-# ℹ️ Sobre o Projeto
-Esse projeto visa criar um <ins>sistema para o cadastro de pets de um abrigo de animais</ins>. Toda a aplicação funciona através da CLI (Interface de Linha de Comando). Apenas a linguagem de programação Java foi utilizada durante a criação do sistema
+## ℹ️ Sobre o Projeto
+Sistema desenvolvido para organizar os cadastros dos animais de um abrigo, com um menu interativo e implementando as funcionalidades CRUD. A aplicação funciona via CLI (Interface de Linha de Comando).
 
-Os administradores do abrigo podem usar as seguintes funcionalidades:
+ ### ✨ Funcionalidades do Sistema
 
-- Cadastrar um novo animal
-- Listar todos os animais cadastrados
-- Listar os animais cadastrados utilizando critérios
-- Alterar o cadastro de um animal
-- Deletar o cadastro de um animal
+- Cadastrar novo animal
+- Listar todos os animais ou filtrar por critérios
+- Atualizar o cadastro
+- Excluir um cadastro
 
-Para cadastrar um animal, o usuário deverá preencher o nome, tipo (gato ou cachorro), sexo do animal, endereço onde foi encontrado, idade, peso e raça.
+### :page_facing_up: Informações utilizados no cadastro
+- Nome
+- Tipo (Gato/Cachorro)
+- Sexo
+- Endereço onde foi encontrado
+- Idade (em anos)
+- Peso (em kg)
+- Raça
 
-Cada cadastro será armazenado em um arquivo .txt, no qual o nome recebe a data e hora no momento da criação do arquivo e o nome do pet.
+### 📂 Armazenamento de dados
+- Esse projeto utiliza **persistência de arquivos `.txt`** para salvar os dados.
+- Os dados são armazenados no formato "Data e horário da criação do cadastro + T + Nome em maiúsculas". Exemplo: `20250817T1543BOB.txt`
 
-## 🚀 Executando o Projeto
+
+### :computer: Tecnologias utilizadas
+Este sistema foi desenvolvido exclusivamente em Java, sem o uso de frameworks externos. Seguem abaixo alguns dos conceitos aplicados:
+- Orientação a Objetos
+- Tratamento de Exceções
+- Manipulação de Arquivos (Java IO)
+- Collections: List e Map
+- Estruturação em Camadas (models, repository e service)
+
+## 🚀 Executando a Aplicação
 ### 🛠️ Pré-requisitos
-- JDK 21
-- Git 2
+- **JDK 21+** para compilar e executar o código.
+- **Git 2** para clonar o repositório.
 
 ---
 1. **Clone o repositório**
 ```
-git clone https://github.com/alineaos/sistema-cadastro-pets.git
+git clone https://github.com/alineaos/sistema-cadastro-animais.git
 ```
 
 2. **Navegue até a pasta do repositório**
 ```
-cd sistema-cadastro-pets
+cd sistema-cadastro-animais
 ```
 
 3. **Compile o projeto**
