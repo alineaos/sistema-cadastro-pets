@@ -117,9 +117,13 @@ public class PetService {
 
                 case 7:
                     do {
-                        breed = ValidateRepository.defaultIfEmpty(SCANNER.nextLine());
-                        isValid = ValidateRepository.validateBreed(breed);
-                        if (!isValid) typeAgain();
+                        try {
+                            breed = ValidateRepository.validateBreed(SCANNER.nextLine());
+                            isValid = true;
+                        } catch (PetValidateException e) {
+                            System.out.println("Erro: " + e.getMessage());
+                            System.out.println("Digite o nome do pet novamente.");
+                        }
                     } while (!isValid);
             }
         }

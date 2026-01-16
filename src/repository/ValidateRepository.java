@@ -78,12 +78,11 @@ public class ValidateRepository {
         return weight;
     }
 
-    public static boolean validateBreed(String breed) {
+    public static String validateBreed(String breed) {
         if (!REGEX.matcher(breed).matches()) {
-            System.out.println("Erro: não é permitido o uso de números ou caracteres especiais.");
-            return false;
+            throw new PetValidateException("Não é permitido o uso de números ou caracteres especiais.");
         }
-        return true;
+        return defaultIfEmpty(breed);
     }
 
     public static Double stringToAge(String age) {
